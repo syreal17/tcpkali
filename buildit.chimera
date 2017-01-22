@@ -1,0 +1,9 @@
+#!/bin/bash
+cflags=$2
+cflags="${cflags%\"}"
+cflags="${cflags#\"}"
+
+./configure CC=$1 CFLAGS=$cflags
+make
+cp src/tcpkali ../$4/tcpkali.$3
+make clean
