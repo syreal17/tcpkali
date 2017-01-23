@@ -3,7 +3,9 @@ cflags=$2
 cflags="${cflags%\"}"
 cflags="${cflags#\"}"
 
+cd src_corpora/tcpkali
 ./configure CC=$1 CFLAGS=$cflags
 make
 cp src/tcpkali ../$4/tcpkali.$3
 make clean
+cd ../..
