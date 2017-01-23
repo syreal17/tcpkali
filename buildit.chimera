@@ -1,11 +1,13 @@
 #!/bin/bash
-cflags=$2
-cflags="${cflags%\"}"
+#ltj: remove quotes from cflags param
+cflags=$2                                                                       
+cflags="${cflags%\"}"                                                           
 cflags="${cflags#\"}"
-
 cd src_corpora/tcpkali
-./configure CC=$1 CFLAGS=$cflags
-make
-cp src/tcpkali ../$4/tcpkali.$3
+test -f configure || $(autoreconf -iv && ./configure)
+
+make CC=$1 CFLAGS="$cflags -pthread"
+install -D src/tcpkali -m 644 -t ../../$4/
+mv ../../$4/tcpkali ../../$4/tcpkali.$3
 make clean
 cd ../..
